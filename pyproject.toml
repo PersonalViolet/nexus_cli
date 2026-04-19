@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "share-cli"
+version = "0.1.0"
+description = "Extensible Typer CLI with hot-pluggable commands"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "share-cli contributors" }]
+dependencies = [
+    "typer[all]>=0.12,<1.0",
+    "packaging>=24.0,<25",
+    "platformdirs>=4.2,<5"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0,<9",
+    "pytest-cov>=5.0,<6",
+    "ruff>=0.5,<1",
+    "black>=24.0,<25",
+    "mypy>=1.10,<2"
+]
+
+[project.scripts]
+share-cli = "share_cli.main:cli"
+
+[project.entry-points."share_cli.command"]
+# third-party plugins should register into this group
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
