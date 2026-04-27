@@ -13,13 +13,13 @@ import typer
 class CommandMetadata:
     """Required metadata for each plugin."""
 
-    plugin_id: str
-    command_name: str
-    command_group: str | None = None
-    help_text: str = ""
-    version: str = "0.1.0"
-    min_cli_version: str = ">=0.1.0"
-    dependencies: tuple[str, ...] = ()
+    plugin_id: str  # Globally unique plugin identifier.
+    command_name: str  # Command name exposed by this plugin.
+    command_group: str | None = None  # Optional group; None mounts at root level.
+    help_text: str = ""  # Short help message shown in CLI help output.
+    version: str = "0.1.0"  # Plugin version string.
+    min_cli_version: str = ">=0.1.0"  # Required share-cli version specifier.
+    dependencies: tuple[str, ...] = ()  # Runtime dependency specifiers to validate.
 
 
 class CliPluginBase(ABC):

@@ -5,6 +5,10 @@
 - 插件开发者：扩展新命令并独立发布插件包
 - 核心维护者：发布 share-cli 主程序
 
+快速上手实操请先看：
+
+- [docs/plugin_dev_publish_quickstart.md](docs/plugin_dev_publish_quickstart.md)
+
 ## 1. 设计目标
 
 share-cli 的插件机制遵循以下目标：

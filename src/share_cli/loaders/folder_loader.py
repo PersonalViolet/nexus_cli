@@ -15,7 +15,7 @@ class FolderLoader:
     """Load plugins from python modules under configured directories."""
 
     def __init__(self, plugin_dirs: list[str]) -> None:
-        self._plugin_dirs = [Path(p).expanduser() for p in plugin_dirs]
+        self._plugin_dirs :list[Path] = [Path(p).expanduser() for p in plugin_dirs]
 
     def load(self) -> tuple[list[tuple[CliPluginBase, str]], dict[str, str]]:
         """Return loaded plugins and loader errors."""

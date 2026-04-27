@@ -23,10 +23,19 @@ class PluginRegistry:
     """Mount plugins onto Typer app with conflict detection."""
 
     def __init__(self, app: typer.Typer, conflict_policy: str = "error") -> None:
-        self._app = app
-        self._conflict_policy = conflict_policy
+        self._app = app # The root Typer application instance where commands are mounted.
+        self._conflict_policy = conflict_policy # Strategy for handling command conflicts: 'error' (raise exception) or 'skip' (ignore duplicate).
+        
+        # Maps group names to their corresponding Typer sub-application instances.
+        # Used to ensure all plugins in the same group share a single parent command.
         self._groups: dict[str, typer.Typer] = {}
+
+        # Maps plugin IDs to their RegisteredPlugin details.
+        # Serves as a registry to look up plugin metadata and instances by ID.
         self._registered: dict[str, RegisteredPlugin] = {}
+
+        # Maps unique command paths (e.g., "group.command" or "justCommandname") to the plugin ID that owns them.
+        # Used for fast conflict detection to prevent multiple plugins from registering the same command.      
         self._command_to_plugin: dict[str, str] = {}
 
     def register(self, plugin: CliPluginBase, source: str) -> tuple[bool, str]:
@@ -64,6 +73,21 @@ class PluginRegistry:
         return True, command_path
 
     def _resolve_mount_target(self, group_name: str | None) -> typer.Typer:
+        """Resolve the Typer application instance where the plugin commands should be mounted.
+
+        This method handles the hierarchical structure of commands:
+        - If no group is specified, it returns the main CLI application instance.
+        - If a group name is provided, it retrieves or creates a dedicated Typer sub-application
+          for that group. This ensures that all plugins belonging to the same group are nested
+          under a single parent command.
+
+        Args:
+            group_name: The name of the command group (e.g., 'release'). 
+                        If None or empty, the root app is used.
+
+        Returns:
+            The typer.Typer instance that serves as the parent for the plugin's commands.
+        """
         if not group_name:
             return self._app
 

@@ -72,7 +72,26 @@ class PluginManager:
         for plugin, source in plugins:
             self._activate(plugin=plugin, source=source, state=state)
 
-    def _activate(self, plugin: CliPluginBase, source: str, state) -> None:
+    def _activate(self, 
+                  plugin: CliPluginBase, # The plugin instance to be activated and registered.
+                  source: str, # A string identifying the origin of the plugin (e.g., "builtin", "entrypoint:name", or folder path).
+                  state # The current runtime state object used to track loaded, failed, or skipped plugins.
+                  ) -> None:
+        """
+        Activate a single plugin by validating, registering, and recording its status.
+
+        This method orchestrates the lifecycle of a plugin during startup:
+        1. Checks if the plugin is explicitly disabled.
+        2. Validates compatibility and dependencies.
+        3. Registers the plugin's commands with the CLI registry.
+        4. Notifies the plugin via on_load callback.
+        5. Records the outcome (loaded, skipped, or failed) in the runtime state.
+
+        Args:
+            plugin: The plugin instance implementing CliPluginBase.
+            source: Identifier for where the plugin was discovered (e.g., 'builtin', 'entrypoint:my-plugin').
+            state: The mutable RuntimeState object to update with plugin status.
+        """
         meta = plugin.metadata
 
         if meta.plugin_id in state.disabled_plugins:

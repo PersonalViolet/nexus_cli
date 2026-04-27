@@ -5,6 +5,10 @@ This guide targets two roles:
 - Plugin developers: extend new commands and publish plugin packages independently
 - Core maintainers: release the share-cli core package
 
+For a hands-on workflow first, read:
+
+- [docs/plugin_dev_publish_quickstart.md](docs/plugin_dev_publish_quickstart.md)
+
 ## 1. Design Goals
 
 The plugin architecture of share-cli focuses on:

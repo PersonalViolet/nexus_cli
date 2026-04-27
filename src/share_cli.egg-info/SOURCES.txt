@@ -25,4 +25,5 @@ src/share_cli/plugins/builtins.py
 src/share_cli/plugins/manager.py
 src/share_cli/plugins/registry.py
 tests/test_file_batch_rename.py
+tests/test_plugin_admin_config.py
 tests/test_plugin_manager.py

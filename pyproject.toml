@@ -8,12 +8,18 @@ version = "0.1.0"
 description = "Extensible Typer CLI with hot-pluggable commands"
 readme = "README.md"
 requires-python = ">=3.10"
-authors = [{ name = "share-cli contributors" }]
+license = {text = "MIT"}
+authors = [
+    { name = "ByteKnight", email = "esqaNN@163.com" }
+]
 dependencies = [
     "typer[all]>=0.12,<1.0",
     "packaging>=24.0,<25",
     "platformdirs>=4.2,<5"
 ]
+
+[project.urls]
+# add project links here
 
 [project.optional-dependencies]
 dev = [
