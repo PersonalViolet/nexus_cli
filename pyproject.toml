@@ -15,7 +15,8 @@ authors = [
 dependencies = [
     "typer[all]>=0.12,<1.0",
     "packaging>=24.0,<25",
-    "platformdirs>=4.2,<5"
+    "platformdirs>=4.2,<5",
+    "babel>=2.14,<3.0"
 ]
 
 [project.urls]

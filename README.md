@@ -1,22 +1,73 @@
-# nexuscli
+# NexusCLI
 
-A Typer-based extensible CLI with a plugin architecture.
+[English](README.md) | [中文](docs/README.zh-CN.md)
 
-## Developer Docs
+Extensible Typer CLI with hot-pluggable commands. NexusCLI loads built-in and third-party plugins on every invocation so you can add new commands by installing packages.
 
-- Beginner learning guide (ZH): [docs/面向初次接触者的该项目学习指南.md](docs/面向初次接触者的该项目学习指南.md)
-- Plugin dev and publish quickstart (ZH): [docs/plugin_dev_publish_quickstart.md](docs/plugin_dev_publish_quickstart.md)
-- Plugin contract and release workflow (ZH): [docs/plugin_developer_guide.md](docs/plugin_developer_guide.md)
-- Plugin contract and release workflow (EN): [docs/plugin_developer_guide_en.md](docs/plugin_developer_guide_en.md)
+## Features
 
-## Example External Plugin
+- Plugin-based command system with runtime discovery
+- Built-in commands for plugin management and batch file renaming
+- Configurable plugin sources (entry points and optional folder loader)
+- Per-plugin and global language settings
 
-- Example package path: [plugins/example_release_plugin](plugins/example_release_plugin)
+## Installation
+
+For end users, install inside a virtual environment:
+
+```bash
+pip install nexuscli
+```
 
 ## Quick Start
 
-```powershell
-D:/Develop/Python/3.10.6/python.exe -m pip install -r requirements.txt
-$env:PYTHONPATH = "src"
-D:/Develop/Python/3.10.6/python.exe -m nexuscli.main --help
+```bash
+ncli --help
+ncli plugin list
+
+# Batch rename preview (dry-run is default)
+ncli file rename ./my-folder --pattern "\s+" --replacement "_"
+
+# Apply the rename plan
+ncli file rename ./my-folder --pattern "\s+" --replacement "_" --apply
 ```
+
+## Installing Plugins
+
+After installing NexusCLI, add plugins via pip:
+
+```bash
+# Install a local plugin folder
+pip install /path/to/your-plugin
+
+# Install a plugin published on PyPI
+pip install your-plugin-package
+```
+
+Plugins should register into the `nexuscli.command` entry point group so NexusCLI can discover them on startup. After installing the plugin, type `ncli` again to verify that the plugin was installed successfully.
+
+## Configuration
+
+Inspect or update plugin settings:
+
+```bash
+ncli plugin config
+ncli plugin config-path
+```
+
+Manage plugin directories via interactive prompt or the `--set-plugin-dir`, `--add-plugin-dir`, `--remove-plugin-dir` options.
+
+Note:
+
+`ncli plugin config --folder-loader` is ineffective for enabling directory loading; this command is deprecated soon. Ignore it.
+
+## Development
+
+```bash
+pip install -e ".[dev]"
+pytest
+```
+
+## License
+
+MIT
