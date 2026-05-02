@@ -19,7 +19,6 @@ from share_cli.config import (
 from share_cli.core.plugin_contract import CliPluginBase, CommandMetadata
 from share_cli.runtime import get_runtime_state
 
-print("我是plugin_admin插件的代码，哈哈哈")
 console = Console()
 app = typer.Typer(help="Manage plugin lifecycle and runtime status.")
 VALID_CONFLICT_POLICIES = {"error", "skip"}

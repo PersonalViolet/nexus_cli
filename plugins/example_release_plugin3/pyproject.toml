@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "example-release-plugin3"
+version = "0.1.0"
+description = "Example external plugin for share_cli release workflow"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "ByteKnight", email = "esqaNN@163.com"}]
+dependencies = [
+    "share_cli>=0.1.0,<1.0.0",
+    "typer>=0.12,<1.0"
+]
+
+[project.entry-points."share_cli.command"]
+example-release-plugin3 = "example_release_plugin3.plugin:HelloReleasePlugin"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+example_release_plugin3 = ["locales/**/*.po", "locales/**/*.mo"]

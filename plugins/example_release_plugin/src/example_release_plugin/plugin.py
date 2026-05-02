@@ -10,7 +10,6 @@ from share_cli.core.plugin_contract import CliPluginBase, CommandMetadata
 
 
 DEFAULT_LANGUAGE = "en"
-print("我是example_release_plugin插件的代码，哈哈哈")
 GREETING_TEMPLATES: dict[str, dict[str, str]] = {
     "en": {
         "friendly": "Hi, {name}! Glad to see you.",
@@ -44,8 +43,28 @@ class HelloReleasePlugin(CliPluginBase):
         self.loaded_context: dict[str, Any] | None = None
         self.last_error: str | None = None
         self.language = DEFAULT_LANGUAGE
+
+    @property
+    def metadata(self) -> CommandMetadata:
+        return CommandMetadata(
+            plugin_id="example.release-hello",
+            command_name="hello",
+            help_text="Example hello command from external plugin",
+            version="0.1.0",
+            min_cli_version=">=0.1.0",
+            dependencies=("typer>=0.12,<1.0",),
+        )
+
+    @property
+    def typer_app(self) -> typer.Typer:
+        return self._app
+
+    def on_configure(self, context: dict[str, Any]) -> None:
+        self.language = _resolve_language(context.get("language"))
+
+
+    def build_app(self) -> typer.Typer:
         self._app = typer.Typer(help="Greeting commands from example external plugin.")
-        print("我初始化了哈哈")
         @self._app.command("greet", help="打印问候消息，支持多种风格")
         def greet(
             name: str = typer.Argument(..., help="Name of the target person."),
@@ -65,20 +84,6 @@ class HelloReleasePlugin(CliPluginBase):
                 raise typer.BadParameter(STYLE_ERROR_MESSAGES[self.language])
 
             typer.echo(template.format(name=name, upper_name=name.upper()))
-
-    @property
-    def metadata(self) -> CommandMetadata:
-        return CommandMetadata(
-            plugin_id="example.release-hello",
-            command_name="hello",
-            help_text="Example hello command from external plugin",
-            version="0.1.0",
-            min_cli_version=">=0.1.0",
-            dependencies=("typer>=0.12,<1.0",),
-        )
-
-    @property
-    def typer_app(self) -> typer.Typer:
         return self._app
 
     def on_load(self, context: dict[str, Any]) -> None:
