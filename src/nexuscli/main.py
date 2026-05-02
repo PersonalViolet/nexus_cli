@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from share_cli.app import create_app
-from share_cli.config import load_settings
-from share_cli.plugins.manager import PluginManager
+from nexuscli.app import create_app
+from nexuscli.config import load_settings
+from nexuscli.plugins.manager import PluginManager
 
 
 def cli() -> None:

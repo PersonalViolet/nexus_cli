@@ -1,9 +1,9 @@
-# share-cli Plugin Development and Release Guide
+# nexuscli Plugin Development and Release Guide
 
 This guide targets two roles:
 
 - Plugin developers: extend new commands and publish plugin packages independently
-- Core maintainers: release the share-cli core package
+- Core maintainers: release the nexuscli core package
 
 For a hands-on workflow first, read:
 
@@ -11,7 +11,7 @@ For a hands-on workflow first, read:
 
 ## 1. Design Goals
 
-The plugin architecture of share-cli focuses on:
+The plugin architecture of nexuscli focuses on:
 
 - Loose coupling: plugins are independent Python packages
 - Governance: standard integration via Python Entry Points
@@ -24,7 +24,7 @@ A plugin must implement `CliPluginBase` and provide `CommandMetadata` and `typer
 
 Contract source:
 
-- `src/share_cli/core/plugin_contract.py`
+- `src/nexuscli/core/plugin_contract.py`
 
 ### 2.1 Required Metadata Fields
 
@@ -56,7 +56,7 @@ Hooks should be idempotent and should not raise unhandled exceptions.
 
 Main orchestration:
 
-- `src/share_cli/plugins/manager.py`
+- `src/nexuscli/plugins/manager.py`
 
 ### 3.1 Load Order
 
@@ -66,7 +66,7 @@ Main orchestration:
 
 ### 3.2 Compatibility Validation
 
-Before activation, share-cli validates:
+Before activation, nexuscli validates:
 
 - `plugin_id` is not empty and not duplicated
 - `command_name` is not empty
@@ -78,7 +78,7 @@ Before activation, share-cli validates:
 
 Conflict detection:
 
-- `src/share_cli/plugins/registry.py`
+- `src/nexuscli/plugins/registry.py`
 
 Policy is controlled by `conflict_policy`:
 
@@ -87,20 +87,20 @@ Policy is controlled by `conflict_policy`:
 
 ### 3.4 Hot-Plug Semantics
 
-share-cli is a short-lived process. Hot-plug means:
+nexuscli is a short-lived process. Hot-plug means:
 
-- install/upgrade/remove plugin, then run `share-cli` again to take effect
+- install/upgrade/remove plugin, then run `nexuscli` again to take effect
 - no in-process safe hot-reload support
 
 ## 4. Configuration Contract
 
 Configuration is resolved from user-level JSON plus environment variables:
 
-- `src/share_cli/config.py`
+- `src/nexuscli/config.py`
 
 Key fields:
 
-- `entrypoint_group`: default `share_cli.command`
+- `entrypoint_group`: default `nexuscli.command`
 - `conflict_policy`: `error` or `skip`
 - `enable_folder_loader`: enable local folder discovery
 - `plugin_dirs`: folder loader search paths
@@ -108,21 +108,21 @@ Key fields:
 
 Environment variables:
 
-- `SHARE_CLI_ENTRYPOINT_GROUP`
-- `SHARE_CLI_CONFLICT_POLICY`
-- `SHARE_CLI_ENABLE_FOLDER_LOADER`
-- `SHARE_CLI_PLUGIN_DIRS`
-- `SHARE_CLI_DISABLED_PLUGINS`
+- `NEXUSCLI_ENTRYPOINT_GROUP`
+- `NEXUSCLI_CONFLICT_POLICY`
+- `NEXUSCLI_ENABLE_FOLDER_LOADER`
+- `NEXUSCLI_PLUGIN_DIRS`
+- `NEXUSCLI_DISABLED_PLUGINS`
 
 ## 5. Minimal Plugin Example
 
 ### 5.1 Layout
 
 ```text
-acme-share-cli-hello/
+acme-nexuscli-hello/
   pyproject.toml
   src/
-    acme_share_cli_hello/
+    acme_nexuscli_hello/
       __init__.py
       plugin.py
 ```
@@ -133,7 +133,7 @@ acme-share-cli-hello/
 from __future__ import annotations
 
 import typer
-from share_cli.core.plugin_contract import CliPluginBase, CommandMetadata
+from nexuscli.core.plugin_contract import CliPluginBase, CommandMetadata
 
 hello_app = typer.Typer(help="Hello commands")
 
@@ -165,13 +165,13 @@ class HelloPlugin(CliPluginBase):
 
 ```toml
 [project]
-name = "acme-share-cli-hello"
+name = "acme-nexuscli-hello"
 version = "0.1.0"
 requires-python = ">=3.10"
-dependencies = ["share-cli>=0.1.0", "typer>=0.12,<1"]
+dependencies = ["nexuscli>=0.1.0", "typer>=0.12,<1"]
 
-[project.entry-points."share_cli.command"]
-acme-hello = "acme_share_cli_hello.plugin:HelloPlugin"
+[project.entry-points."nexuscli.command"]
+acme-hello = "acme_nexuscli_hello.plugin:HelloPlugin"
 ```
 
 The loader currently accepts entry point targets as:
@@ -185,7 +185,7 @@ The loader currently accepts entry point targets as:
 Windows PowerShell example:
 
 ```powershell
-# 1) install core dev dependencies in share-cli root
+# 1) install core dev dependencies in nexuscli root
 D:/Develop/Python/3.10.6/python.exe -m pip install -e .[dev]
 
 # 2) install your plugin project
@@ -193,8 +193,8 @@ D:/Develop/Python/3.10.6/python.exe -m pip install -e .
 
 # 3) run CLI
 $env:PYTHONPATH = "src"
-D:/Develop/Python/3.10.6/python.exe -m share_cli.main --help
-D:/Develop/Python/3.10.6/python.exe -m share_cli.main plugin list
+D:/Develop/Python/3.10.6/python.exe -m nexuscli.main --help
+D:/Develop/Python/3.10.6/python.exe -m nexuscli.main plugin list
 ```
 
 ## 7. Plugin Release Workflow (3rd Party)
@@ -204,7 +204,7 @@ D:/Develop/Python/3.10.6/python.exe -m share_cli.main plugin list
 1. Bump plugin version (semantic versioning)
 2. Verify `min_cli_version` and `dependencies`
 3. Run tests and static checks
-4. Validate visibility with `share-cli plugin list`
+4. Validate visibility with `nexuscli plugin list`
 
 ### 7.2 Build and Validate
 
@@ -226,14 +226,14 @@ D:/Develop/Python/3.10.6/python.exe -m twine upload dist/*
 
 ### 7.4 Post-release Validation
 
-1. Install `share-cli` + plugin in a clean environment
-2. Run `share-cli --help` and verify command visibility
+1. Install `nexuscli` + plugin in a clean environment
+2. Run `nexuscli --help` and verify command visibility
 3. Run plugin command smoke tests
 4. Record compatibility matrix (plugin version -> supported CLI versions)
 
 ## 8. Core CLI Release Workflow (Maintainers)
 
-1. Update versions in `src/share_cli/__init__.py` and `pyproject.toml`
+1. Update versions in `src/nexuscli/__init__.py` and `pyproject.toml`
 2. Run tests:
 
 ```powershell
@@ -258,9 +258,9 @@ D:/Develop/Python/3.10.6/python.exe -m twine check dist/*
 
 ### 9.1 Plugin Not Visible
 
-1. Check entry point group is `share_cli.command`
+1. Check entry point group is `nexuscli.command`
 2. Confirm plugin is installed in the active Python environment
-3. Inspect `share-cli plugin list --failed --skipped`
+3. Inspect `nexuscli plugin list --failed --skipped`
 4. Check disabled state via `plugin inspect <plugin_id>`
 
 ### 9.2 Dependency Errors

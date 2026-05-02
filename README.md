@@ -1,4 +1,4 @@
-# share-cli
+# nexuscli
 
 A Typer-based extensible CLI with a plugin architecture.
 
@@ -18,5 +18,5 @@ A Typer-based extensible CLI with a plugin architecture.
 ```powershell
 D:/Develop/Python/3.10.6/python.exe -m pip install -r requirements.txt
 $env:PYTHONPATH = "src"
-D:/Develop/Python/3.10.6/python.exe -m share_cli.main --help
+D:/Develop/Python/3.10.6/python.exe -m nexuscli.main --help
 ```

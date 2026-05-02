@@ -1,9 +1,9 @@
-# share-cli 插件开发与发布指南
+# nexuscli 插件开发与发布指南
 
 本指南面向两类开发者：
 
-- 插件开发者：扩展新命令并独立发布插件包
-- 核心维护者：发布 share-cli 主程序
+- 插件开发者：扩展新命令并独立发布插件
+- 核心维护者：发布 nexuscli 主程序
 
 快速上手实操请先看：
 
@@ -11,7 +11,7 @@
 
 ## 1. 设计目标
 
-share-cli 的插件机制遵循以下目标：
+nexuscli 的插件机制遵循以下目标：
 
 - 低耦合：插件以独立 Python 包发布
 - 可治理：通过 Entry Points 标准机制接入
@@ -24,7 +24,7 @@ share-cli 的插件机制遵循以下目标：
 
 契约定义位于：
 
-- `src/share_cli/core/plugin_contract.py`
+- `src/nexuscli/core/plugin_contract.py`
 
 ### 2.1 必填元数据字段
 
@@ -56,7 +56,7 @@ share-cli 的插件机制遵循以下目标：
 
 插件总加载链路在：
 
-- `src/share_cli/plugins/manager.py`
+- `src/nexuscli/plugins/manager.py`
 
 ### 3.1 加载顺序
 
@@ -78,7 +78,7 @@ share-cli 的插件机制遵循以下目标：
 
 冲突检测在：
 
-- `src/share_cli/plugins/registry.py`
+- `src/nexuscli/plugins/registry.py`
 
 策略由 `conflict_policy` 控制：
 
@@ -87,20 +87,20 @@ share-cli 的插件机制遵循以下目标：
 
 ### 3.4 热插拔语义
 
-share-cli 是短生命周期进程。插件“热插拔”语义为：
+nexuscli 是短生命周期进程。插件“热插拔”语义为：
 
-- 安装/升级/删除插件后，下一次执行 `share-cli` 自动生效
+- 安装/升级/删除插件后，下一次执行 `nexuscli` 自动生效
 - 不支持同一进程内安全热重载
 
 ## 4. 配置约定
 
 配置由用户级 JSON 文件与环境变量共同决定，定义在：
 
-- `src/share_cli/config.py`
+- `src/nexuscli/config.py`
 
 关键配置项：
 
-- `entrypoint_group`：默认 `share_cli.command`
+- `entrypoint_group`：默认 `nexuscli.command`
 - `conflict_policy`：`error` 或 `skip`
 - `enable_folder_loader`：是否启用目录扫描
 - `plugin_dirs`：目录扫描列表
@@ -108,21 +108,21 @@ share-cli 是短生命周期进程。插件“热插拔”语义为：
 
 对应环境变量：
 
-- `SHARE_CLI_ENTRYPOINT_GROUP`
-- `SHARE_CLI_CONFLICT_POLICY`
-- `SHARE_CLI_ENABLE_FOLDER_LOADER`
-- `SHARE_CLI_PLUGIN_DIRS`
-- `SHARE_CLI_DISABLED_PLUGINS`
+- `NEXUSCLI_ENTRYPOINT_GROUP`
+- `NEXUSCLI_CONFLICT_POLICY`
+- `NEXUSCLI_ENABLE_FOLDER_LOADER`
+- `NEXUSCLI_PLUGIN_DIRS`
+- `NEXUSCLI_DISABLED_PLUGINS`
 
 ## 5. 最小插件示例
 
 ### 5.1 目录结构
 
 ```text
-acme-share-cli-hello/
+acme-nexuscli-hello/
   pyproject.toml
   src/
-    acme_share_cli_hello/
+    acme_nexuscli_hello/
       __init__.py
       plugin.py
 ```
@@ -133,7 +133,7 @@ acme-share-cli-hello/
 from __future__ import annotations
 
 import typer
-from share_cli.core.plugin_contract import CliPluginBase, CommandMetadata
+from nexuscli.core.plugin_contract import CliPluginBase, CommandMetadata
 
 hello_app = typer.Typer(help="Hello commands")
 
@@ -165,13 +165,13 @@ class HelloPlugin(CliPluginBase):
 
 ```toml
 [project]
-name = "acme-share-cli-hello"
+name = "acme-nexuscli-hello"
 version = "0.1.0"
 requires-python = ">=3.10"
-dependencies = ["share-cli>=0.1.0", "typer>=0.12,<1"]
+dependencies = ["nexuscli>=0.1.0", "typer>=0.12,<1"]
 
-[project.entry-points."share_cli.command"]
-acme-hello = "acme_share_cli_hello.plugin:HelloPlugin"
+[project.entry-points."nexuscli.command"]
+acme-hello = "acme_nexuscli_hello.plugin:HelloPlugin"
 ```
 
 说明：Entry Point 指向对象时，当前加载器支持三种返回形式：
@@ -185,7 +185,7 @@ acme-hello = "acme_share_cli_hello.plugin:HelloPlugin"
 在 Windows PowerShell 下，建议这样联调：
 
 ```powershell
-# 1) 在 share-cli 根目录安装开发依赖
+# 1) 在 nexuscli 根目录安装开发依赖
 D:/Develop/Python/3.10.6/python.exe -m pip install -e .[dev]
 
 # 2) 在插件项目目录安装插件
@@ -193,8 +193,8 @@ D:/Develop/Python/3.10.6/python.exe -m pip install -e .
 
 # 3) 运行主 CLI
 $env:PYTHONPATH = "src"
-D:/Develop/Python/3.10.6/python.exe -m share_cli.main --help
-D:/Develop/Python/3.10.6/python.exe -m share_cli.main plugin list
+D:/Develop/Python/3.10.6/python.exe -m nexuscli.main --help
+D:/Develop/Python/3.10.6/python.exe -m nexuscli.main plugin list
 ```
 
 ## 7. 插件发布流程（第三方开发者）
@@ -204,7 +204,7 @@ D:/Develop/Python/3.10.6/python.exe -m share_cli.main plugin list
 1. 更新插件版本号（遵循语义化版本）
 2. 校验 `min_cli_version` 与 `dependencies`
 3. 本地运行测试与静态检查
-4. 使用 `share-cli plugin list` 验证插件可见
+4. 使用 `nexuscli plugin list` 验证插件可见
 
 ### 7.2 构建与校验
 
@@ -226,14 +226,14 @@ D:/Develop/Python/3.10.6/python.exe -m twine upload dist/*
 
 ### 7.4 发布后验证
 
-1. 在干净环境安装 `share-cli` + 插件
-2. 运行 `share-cli --help` 检查命令是否出现
+1. 在干净环境安装 `nexuscli` + 插件
+2. 运行 `nexuscli --help` 检查命令是否出现
 3. 运行插件命令做冒烟验证
 4. 记录兼容矩阵（插件版本 -> 支持的 CLI 版本）
 
 ## 8. 核心 CLI 发布流程（维护者）
 
-1. 更新 `src/share_cli/__init__.py` 与 `pyproject.toml` 版本号
+1. 更新 `src/nexuscli/__init__.py` 与 `pyproject.toml` 版本号
 2. 运行：
 
 ```powershell
@@ -251,25 +251,25 @@ D:/Develop/Python/3.10.6/python.exe -m twine check dist/*
 4. 发布后执行回归：
 
 - 内置命令：`plugin`、`file`
-- 插件冲突策略：`error` 与 `skip`
+- 插件冲突策略：`error`、`skip`
 - 禁用/启用流程：`plugin disable`、`plugin enable`
 
 ## 9. 故障排查
 
 ### 9.1 插件未出现
 
-1. 检查插件是否注册到 `share_cli.command`
-2. 运行 `share-cli plugin list --failed --skipped`
+1. 检查插件是否注册到 `nexuscli.command`
+2. 运行 `nexuscli plugin list --failed --skipped`
 3. 检查插件是否在禁用列表（`plugin inspect <plugin_id>`）
 
 ### 9.2 依赖报错
 
-- 查看失败信息中 `Missing dependency` 或 `Dependency mismatch`
+- 查看失败信息：`Missing dependency` 或 `Dependency mismatch`
 - 修正插件 `dependencies`，重新安装插件
 
 ### 9.3 命令冲突
 
-- 调整 `command_name` 或 `command_group`
+- 调整 `command_name` 与 `command_group`
 - 或将 `conflict_policy` 改为 `skip` 以临时绕过
 
 ## 10. 团队协作建议

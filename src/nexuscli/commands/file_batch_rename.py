@@ -11,7 +11,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from share_cli.core.plugin_contract import CliPluginBase, CommandMetadata
+from nexuscli.core.plugin_contract import CliPluginBase, CommandMetadata
 
 
 console = Console()
@@ -95,7 +95,7 @@ def apply_rename_plan(plan: list[RenameItem]) -> None:
 
     try:
         for item in plan:
-            temp_path = item.source.with_name(f"{item.source.name}.share_cli_tmp_{uuid4().hex}")
+            temp_path = item.source.with_name(f"{item.source.name}.nexuscli_tmp_{uuid4().hex}")
             item.source.rename(temp_path)
             temp_map[temp_path] = item.target
 
@@ -105,13 +105,13 @@ def apply_rename_plan(plan: list[RenameItem]) -> None:
         # Best-effort rollback to reduce risk of leaving temporary names.
         for temp_path, target_path in temp_map.items():
             if temp_path.exists():
-                original = Path(str(temp_path).split(".share_cli_tmp_")[0])
+                original = Path(str(temp_path).split(".nexuscli_tmp_")[0])
                 try:
                     temp_path.rename(original)
                 except Exception:
                     pass
             elif target_path.exists():
-                original = Path(str(temp_path).split(".share_cli_tmp_")[0])
+                original = Path(str(temp_path).split(".nexuscli_tmp_")[0])
                 try:
                     target_path.rename(original)
                 except Exception:

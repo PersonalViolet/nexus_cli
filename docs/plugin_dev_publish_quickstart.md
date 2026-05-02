@@ -1,8 +1,8 @@
-# share-cli 插件开发与发布实操（Quickstart）
+# nexuscli 插件开发与发布实操（Quickstart）
 
 本实操文档用于快速完成一次完整闭环：
 
-- 开发一个可被 share-cli 发现的插件
+- 开发一个可被 nexuscli 发现的插件
 - 在本地验证插件命令可用
 - 构建并检查可发布制品
 - 按发布流程上传到包仓库
@@ -15,7 +15,7 @@
 
 - Python 3.10+
 - 已安装 pip
-- 当前仓库路径：D:/My-Project/share-cli
+- 当前仓库路径：D:/My-Project/nexuscli
 
 可选但推荐：
 
@@ -31,7 +31,7 @@
 
 这个插件通过 Entry Points 注册到组：
 
-- share_cli.command
+- nexuscli.command
 
 并提供命令路径：
 
@@ -43,23 +43,23 @@
 
 PowerShell：
 
-1. cd D:/My-Project/share-cli
+1. cd D:/My-Project/nexuscli
 2. D:/Develop/Python/3.10.6/python.exe -m pip install -r requirements.txt
 3. D:/Develop/Python/3.10.6/python.exe -m pip install -e .
 4. D:/Develop/Python/3.10.6/python.exe -m pip install -e ./plugins/example_release_plugin
 
 ### 3.2 验证插件是否被发现
 
-验证包是否加载到venv中：
+验证包是否加载到 venv 中：
 
 ```
-(.venv) D:\My-Project\share-cli>pip list -e
+(.venv) D:\My-Project\nexuscli>pip list -e
 ```
 
-验证插件是否被发现
+验证插件是否被发现：
 
 1. $env:PYTHONPATH = "src"
-2. D:/Develop/Python/3.10.6/python.exe -m share_cli.main plugin list
+2. D:/Develop/Python/3.10.6/python.exe -m nexuscli.main plugin list
 
 期望在输出中看到：
 
@@ -67,17 +67,17 @@ PowerShell：
 
 ### 3.3 运行示例命令
 
-1. D:/Develop/Python/3.10.6/python.exe -m share_cli.main hello greet Copilot
-2. D:/Develop/Python/3.10.6/python.exe -m share_cli.main hello greet Copilot --style formal
-3. D:/Develop/Python/3.10.6/python.exe -m share_cli.main hello greet Copilot --style excited
+1. D:/Develop/Python/3.10.6/python.exe -m nexuscli.main hello greet Copilot
+2. D:/Develop/Python/3.10.6/python.exe -m nexuscli.main hello greet Copilot --style formal
+3. D:/Develop/Python/3.10.6/python.exe -m nexuscli.main hello greet Copilot --style excited
 
 ## 4. 开发你自己的插件（方法）
 
 你只需复用示例插件的三部分：
 
-1. 插件类：继承 CliPluginBase
-2. 元数据：返回 CommandMetadata（plugin_id、command_name、version 等）
-3. 注册声明：在 pyproject.toml 中写 entry points 到 share_cli.command
+1. 插件类：继承 `CliPluginBase`
+2. 元数据：返回 `CommandMetadata`（plugin_id、command_name、version 等）
+3. 注册声明：在 `pyproject.toml` 中写 entry points 到 `nexuscli.command`
 
 建议做法：
 
@@ -90,13 +90,13 @@ PowerShell：
 
 ### 5.1 运行主仓库测试
 
-1. cd D:/My-Project/share-cli
+1. cd D:/My-Project/nexuscli
 2. $env:PYTHONPATH = "src"
 3. D:/Develop/Python/3.10.6/python.exe -m pytest -q
 
 ### 5.2 运行示例插件测试
 
-1. cd D:/My-Project/share-cli
+1. cd D:/My-Project/nexuscli
 2. D:/Develop/Python/3.10.6/python.exe -m pytest -q plugins/example_release_plugin/tests
 
 ## 6. 构建与发布方法
@@ -113,7 +113,7 @@ PowerShell：
 
 PowerShell：
 
-1. cd D:/My-Project/share-cli/plugins/example_release_plugin
+1. cd D:/My-Project/nexuscli/plugins/example_release_plugin
 2. D:/Develop/Python/3.10.6/python.exe -m pip install build twine
 3. D:/Develop/Python/3.10.6/python.exe -m build
 4. D:/Develop/Python/3.10.6/python.exe -m twine check dist/*
@@ -130,10 +130,10 @@ PowerShell：
 
 ## 7. 发布后验证
 
-1. 在干净环境安装 share-cli 与插件
-2. 运行 share-cli --help，确认 hello 命令组出现
+1. 在干净环境安装 nexuscli 与插件
+2. 运行 nexuscli --help，确认 hello 命令组出现
 3. 运行 hello greet 做冒烟验证
-4. 记录插件版本与兼容的 share-cli 版本
+4. 记录插件版本与兼容的 nexuscli 版本
 
 ## 8. 常见问题
 
@@ -141,7 +141,7 @@ PowerShell：
 
 排查顺序：
 
-1. 是否正确声明 share_cli.command entry point
+1. 是否正确声明 nexuscli.command entry point
 2. 是否安装到当前 Python 环境
 3. plugin list 中 failed/skipped 原因
 4. 是否被 plugin disable 过

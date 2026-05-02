@@ -3,8 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from share_cli import config
-from share_cli.config import Settings
+from nexuscli import config
+from nexuscli.config import Settings
 
 
 def test_load_settings_language_defaults(monkeypatch, tmp_path: Path) -> None:
@@ -37,9 +37,9 @@ def test_load_settings_language_env_overrides(monkeypatch, tmp_path: Path) -> No
     )
 
     monkeypatch.setattr(config, "get_config_path", lambda: cfg_path)
-    monkeypatch.setenv("SHARE_CLI_LANGUAGE", "fr")
+    monkeypatch.setenv("NEXUSCLI_LANGUAGE", "fr")
     monkeypatch.setenv(
-        "SHARE_CLI_PLUGIN_LANGUAGES",
+        "NEXUSCLI_PLUGIN_LANGUAGES",
         "example.release-hello:de,builtin.file:ja,malformed,no_lang:",
     )
 
@@ -59,7 +59,7 @@ def test_save_settings_persists_language_fields(monkeypatch, tmp_path: Path) -> 
     monkeypatch.setattr(config, "get_config_path", lambda: cfg_path)
 
     settings = Settings(
-        entrypoint_group="share_cli.command",
+        entrypoint_group="nexuscli.command",
         conflict_policy="error",
         enable_folder_loader=False,
         plugin_dirs=["C:/plugins/default"],

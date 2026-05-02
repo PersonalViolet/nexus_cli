@@ -6,8 +6,8 @@ from dataclasses import dataclass
 
 import typer
 
-from share_cli.core.errors import PluginConflictError
-from share_cli.core.plugin_contract import CliPluginBase
+from nexuscli.core.errors import PluginConflictError
+from nexuscli.core.plugin_contract import CliPluginBase
 
 
 @dataclass(slots=True)

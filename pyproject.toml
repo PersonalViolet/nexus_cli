@@ -3,7 +3,7 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "share-cli"
+name = "nexuscli"
 version = "0.1.0"
 description = "Extensible Typer CLI with hot-pluggable commands"
 readme = "README.md"
@@ -31,9 +31,9 @@ dev = [
 ]
 
 [project.scripts]
-scli = "share_cli.main:cli"
+ncli = "nexuscli.main:cli"
 
-[project.entry-points."share_cli.command"]
+[project.entry-points."nexuscli.command"]
 # third-party plugins should register into this group
 
 [tool.setuptools]

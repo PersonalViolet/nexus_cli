@@ -5,16 +5,16 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "example-release-plugin3"
 version = "0.1.0"
-description = "Example external plugin for share_cli release workflow"
+description = "Example external plugin for nexuscli release workflow"
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "ByteKnight", email = "esqaNN@163.com"}]
 dependencies = [
-    "share_cli>=0.1.0,<1.0.0",
+    "nexuscli>=0.1.0,<1.0.0",
     "typer>=0.12,<1.0"
 ]
 
-[project.entry-points."share_cli.command"]
+[project.entry-points."nexuscli.command"]
 example-release-plugin3 = "example_release_plugin3.plugin:HelloReleasePlugin"
 
 [tool.setuptools]

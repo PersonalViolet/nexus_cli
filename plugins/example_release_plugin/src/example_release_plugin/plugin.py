@@ -1,4 +1,4 @@
-"""Example external plugin implementation for share-cli."""
+"""Example external plugin implementation for nexuscli."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from typing import Any
 
 import typer
 
-from share_cli.core.plugin_contract import CliPluginBase, CommandMetadata
+from nexuscli.core.plugin_contract import CliPluginBase, CommandMetadata
 
 
 DEFAULT_LANGUAGE = "en"

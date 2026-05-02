@@ -8,7 +8,7 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any
 
-from share_cli.core.plugin_contract import CliPluginBase
+from nexuscli.core.plugin_contract import CliPluginBase
 
 
 class FolderLoader:
@@ -45,7 +45,7 @@ class FolderLoader:
 
     @staticmethod
     def _load_module(file_path: Path) -> ModuleType:
-        module_name = f"share_cli_local_plugin_{file_path.stem}_{abs(hash(file_path))}"
+        module_name = f"nexuscli_local_plugin_{file_path.stem}_{abs(hash(file_path))}"
         spec = spec_from_file_location(module_name, file_path)
         if spec is None or spec.loader is None:
             raise ImportError(f"Cannot create import spec for {file_path}")

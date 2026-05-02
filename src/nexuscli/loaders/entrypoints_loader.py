@@ -6,7 +6,7 @@ from importlib import metadata
 import inspect
 from typing import Any
 
-from share_cli.core.plugin_contract import CliPluginBase
+from nexuscli.core.plugin_contract import CliPluginBase
 
 
 class EntrypointLoader:

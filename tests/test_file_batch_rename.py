@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from share_cli.commands.file_batch_rename import (
+from nexuscli.commands.file_batch_rename import (
     build_rename_plan,
     collect_candidates,
     detect_plan_conflicts,

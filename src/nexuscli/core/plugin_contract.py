@@ -23,7 +23,7 @@ class CommandMetadata:
     command_group: str | None = None  # Optional group; None mounts at root level.
     help_text: str = ""  # Short help message shown in CLI help output.
     version: str = "0.1.0"  # Plugin version string.
-    min_cli_version: str = ">=0.1.0"  # Required share-cli version specifier.
+    min_cli_version: str = ">=0.1.0"  # Required nexuscli version specifier.
     dependencies: tuple[str, ...] = ()  # Runtime dependency specifiers to validate.
 
 

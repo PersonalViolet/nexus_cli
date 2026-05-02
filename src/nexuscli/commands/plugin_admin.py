@@ -9,15 +9,15 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from share_cli.config import (
+from nexuscli.config import (
     Settings,
     get_config_path,
     load_settings,
     save_settings,
     set_plugin_disabled,
 )
-from share_cli.core.plugin_contract import CliPluginBase, CommandMetadata
-from share_cli.runtime import get_runtime_state
+from nexuscli.core.plugin_contract import CliPluginBase, CommandMetadata
+from nexuscli.runtime import get_runtime_state
 
 console = Console()
 app = typer.Typer(help="Manage plugin lifecycle and runtime status.")

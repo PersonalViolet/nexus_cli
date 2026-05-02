@@ -1,4 +1,4 @@
-"""Example external plugin implementation for share-cli."""
+"""Example external plugin implementation for nexuscli."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ import typer
 from babel.core import Locale
 from babel.support import Translations
 
-from share_cli.core.plugin_contract import CliPluginBase, CommandMetadata
+from nexuscli.core.plugin_contract import CliPluginBase, CommandMetadata
 
 class HelloReleasePlugin(CliPluginBase):
     """Example plugin for development and release workflow."""

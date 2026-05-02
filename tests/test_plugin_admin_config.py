@@ -4,14 +4,14 @@ from pathlib import Path
 
 from typer.testing import CliRunner
 
-from share_cli.commands import plugin_admin
-from share_cli.config import Settings
+from nexuscli.commands import plugin_admin
+from nexuscli.config import Settings
 
 
 def test_config_command_updates_and_saves(monkeypatch) -> None:
     """config command should apply validated options and persist settings."""
     base = Settings(
-        entrypoint_group="share_cli.command",
+        entrypoint_group="nexuscli.command",
         conflict_policy="error",
         enable_folder_loader=False,
         plugin_dirs=["C:/plugins/default"],

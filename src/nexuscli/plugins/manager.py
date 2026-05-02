@@ -7,19 +7,19 @@ from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
 import typer
 
-from share_cli import __version__
-from share_cli.config import Settings
-from share_cli.core.errors import (
+from nexuscli import __version__
+from nexuscli.config import Settings
+from nexuscli.core.errors import (
     PluginCompatibilityError,
     PluginDependencyError,
     PluginLoadError,
 )
-from share_cli.core.plugin_contract import CliPluginBase
-from share_cli.loaders.entrypoints_loader import EntrypointLoader
-from share_cli.loaders.folder_loader import FolderLoader
-from share_cli.plugins.builtins import get_builtin_plugins
-from share_cli.plugins.registry import PluginRegistry
-from share_cli.runtime import LoadedPluginRecord, reset_runtime_state
+from nexuscli.core.plugin_contract import CliPluginBase
+from nexuscli.loaders.entrypoints_loader import EntrypointLoader
+from nexuscli.loaders.folder_loader import FolderLoader
+from nexuscli.plugins.builtins import get_builtin_plugins
+from nexuscli.plugins.registry import PluginRegistry
+from nexuscli.runtime import LoadedPluginRecord, reset_runtime_state
 
 
 class PluginManager:

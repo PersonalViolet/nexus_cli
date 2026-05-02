@@ -11,8 +11,8 @@ from typing import Any
 from platformdirs import user_config_dir
 
 
-APP_NAME = "share-cli"
-DEFAULT_ENTRYPOINT_GROUP = "share_cli.command"
+APP_NAME = "nexuscli"
+DEFAULT_ENTRYPOINT_GROUP = "nexuscli.command"
 DEFAULT_CONFIG_FILE = "config.json"
 DEFAULT_LANGUAGE = "en"
 
@@ -25,7 +25,7 @@ class Settings:
     conflict_policy: str = "error"
     enable_folder_loader: bool = False
     plugin_dirs: list[str] = field(
-        default_factory=lambda: [str(Path.home() / ".share-cli" / "plugins")]
+        default_factory=lambda: [str(Path.home() / ".nexuscli" / "plugins")]
     )
     disabled_plugins: list[str] = field(default_factory=list)
     language: str = DEFAULT_LANGUAGE
@@ -130,19 +130,19 @@ def load_settings() -> Settings:
         entrypoint_group=str(data.get("entrypoint_group", DEFAULT_ENTRYPOINT_GROUP)),
         conflict_policy=str(data.get("conflict_policy", "error")),
         enable_folder_loader=bool(data.get("enable_folder_loader", False)),
-        plugin_dirs=list(data.get("plugin_dirs", [str(Path.home() / ".share-cli" / "plugins")])),
+        plugin_dirs=list(data.get("plugin_dirs", [str(Path.home() / ".nexuscli" / "plugins")])),
         disabled_plugins=list(data.get("disabled_plugins", [])),
         language=file_language,
         plugin_languages=_normalize_plugin_languages(data.get("plugin_languages", {})),
     )
 
-    env_group = os.getenv("SHARE_CLI_ENTRYPOINT_GROUP")
-    env_policy = os.getenv("SHARE_CLI_CONFLICT_POLICY")
-    env_folder_loader = os.getenv("SHARE_CLI_ENABLE_FOLDER_LOADER")
-    env_plugin_dirs = os.getenv("SHARE_CLI_PLUGIN_DIRS")
-    env_disabled = os.getenv("SHARE_CLI_DISABLED_PLUGINS")
-    env_language = os.getenv("SHARE_CLI_LANGUAGE")
-    env_plugin_languages = os.getenv("SHARE_CLI_PLUGIN_LANGUAGES")
+    env_group = os.getenv("NEXUSCLI_ENTRYPOINT_GROUP")
+    env_policy = os.getenv("NEXUSCLI_CONFLICT_POLICY")
+    env_folder_loader = os.getenv("NEXUSCLI_ENABLE_FOLDER_LOADER")
+    env_plugin_dirs = os.getenv("NEXUSCLI_PLUGIN_DIRS")
+    env_disabled = os.getenv("NEXUSCLI_DISABLED_PLUGINS")
+    env_language = os.getenv("NEXUSCLI_LANGUAGE")
+    env_plugin_languages = os.getenv("NEXUSCLI_PLUGIN_LANGUAGES")
 
     if env_group:
         settings.entrypoint_group = env_group

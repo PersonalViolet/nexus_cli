@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import typer
 
-from share_cli.app import create_app
-from share_cli.core.plugin_contract import CliPluginBase, CommandMetadata
-from share_cli.config import Settings
-from share_cli.plugins.manager import PluginManager
-from share_cli.runtime import get_runtime_state, reset_runtime_state
+from nexuscli.app import create_app
+from nexuscli.core.plugin_contract import CliPluginBase, CommandMetadata
+from nexuscli.config import Settings
+from nexuscli.plugins.manager import PluginManager
+from nexuscli.runtime import get_runtime_state, reset_runtime_state
 
 
 class _DummyLanguagePlugin(CliPluginBase):
@@ -37,7 +37,7 @@ class _DummyLanguagePlugin(CliPluginBase):
 
 def test_builtin_plugins_are_loaded() -> None:
     app = create_app()
-    settings = Settings(entrypoint_group="share_cli.nonexistent", enable_folder_loader=False)
+    settings = Settings(entrypoint_group="nexuscli.nonexistent", enable_folder_loader=False)
 
     manager = PluginManager(app=app, settings=settings)
     manager.load_plugins()
@@ -50,7 +50,7 @@ def test_builtin_plugins_are_loaded() -> None:
 def test_plugin_language_context_prefers_plugin_override() -> None:
     app = create_app()
     settings = Settings(
-        entrypoint_group="share_cli.nonexistent",
+        entrypoint_group="nexuscli.nonexistent",
         enable_folder_loader=False,
         language="zh",
         plugin_languages={"dummy.lang": "ja"},
@@ -72,7 +72,7 @@ def test_plugin_language_context_prefers_plugin_override() -> None:
 def test_plugin_language_context_falls_back_to_global() -> None:
     app = create_app()
     settings = Settings(
-        entrypoint_group="share_cli.nonexistent",
+        entrypoint_group="nexuscli.nonexistent",
         enable_folder_loader=False,
         language="zh",
         plugin_languages={"another.plugin": "ja"},

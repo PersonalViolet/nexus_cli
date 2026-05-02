@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from share_cli.core.plugin_contract import CliPluginBase
-from share_cli.commands.file_batch_rename import FileCommandsPlugin
-from share_cli.commands.plugin_admin import PluginAdminPlugin
+from nexuscli.core.plugin_contract import CliPluginBase
+from nexuscli.commands.file_batch_rename import FileCommandsPlugin
+from nexuscli.commands.plugin_admin import PluginAdminPlugin
 
 
 def get_builtin_plugins() -> list[CliPluginBase]:
