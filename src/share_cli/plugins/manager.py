@@ -40,16 +40,28 @@ class PluginManager:
             "conflict_policy": self._settings.conflict_policy,
             "enable_folder_loader": self._settings.enable_folder_loader,
             "plugin_dirs": list(self._settings.plugin_dirs),
+            "language": self._settings.language,
+            "plugin_languages": dict(self._settings.plugin_languages),
         }
 
         self._load_builtin(state)
         self._load_entrypoints(state)
 
-        if self._settings.enable_folder_loader:
+        if self._settings.enable_folder_loader and 1 == 0:  # Disabled for now - folder plugins are not yet stable
             self._load_folder_plugins(state)
 
     def _load_builtin(self, state) -> None:
         for plugin in get_builtin_plugins():
+            plugin_language = self._settings.plugin_languages.get(plugin.metadata.plugin_id)
+            effective_language = plugin_language or self._settings.language
+            plugin.on_configure(
+                {
+                    "language": effective_language,
+                    "global_language": self._settings.language,
+                    "plugin_language": plugin_language,
+                }
+            )
+            plugin.build_app()
             self._activate(plugin=plugin, source="builtin", state=state)
 
     def _load_entrypoints(self, state) -> None:
@@ -60,6 +72,16 @@ class PluginManager:
             state.failed_plugins[source] = message
 
         for plugin, source in plugins:
+            plugin_language = self._settings.plugin_languages.get(plugin.metadata.plugin_id)
+            effective_language = plugin_language or self._settings.language
+            plugin.on_configure(
+                {
+                    "language": effective_language,
+                    "global_language": self._settings.language,
+                    "plugin_language": plugin_language,
+                }
+            )
+            plugin.build_app()
             self._activate(plugin=plugin, source=source, state=state)
 
     def _load_folder_plugins(self, state) -> None:
@@ -68,7 +90,6 @@ class PluginManager:
 
         for source, message in errors.items():
             state.failed_plugins[source] = message
-
         for plugin, source in plugins:
             self._activate(plugin=plugin, source=source, state=state)
 
@@ -106,7 +127,17 @@ class PluginManager:
                 state.skipped_plugins[meta.plugin_id] = detail
                 return
 
-            plugin.on_load({"source": source, "command_path": detail})
+            plugin_language = self._settings.plugin_languages.get(meta.plugin_id)
+            effective_language = plugin_language or self._settings.language
+            plugin.on_load(
+                {
+                    "source": source,
+                    "command_path": detail,
+                    "language": effective_language,
+                    "global_language": self._settings.language,
+                    "plugin_language": plugin_language,
+                }
+            )
             state.loaded_plugins[meta.plugin_id] = LoadedPluginRecord(
                 plugin_id=meta.plugin_id,
                 source=source,

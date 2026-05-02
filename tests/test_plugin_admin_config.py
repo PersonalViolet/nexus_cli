@@ -16,6 +16,8 @@ def test_config_command_updates_and_saves(monkeypatch) -> None:
         enable_folder_loader=False,
         plugin_dirs=["C:/plugins/default"],
         disabled_plugins=[],
+        language="en",
+        plugin_languages={"legacy.plugin": "zh"},
     )
     saved: dict[str, Settings] = {}
 
@@ -26,6 +28,8 @@ def test_config_command_updates_and_saves(monkeypatch) -> None:
             enable_folder_loader=base.enable_folder_loader,
             plugin_dirs=list(base.plugin_dirs),
             disabled_plugins=list(base.disabled_plugins),
+            language=base.language,
+            plugin_languages=dict(base.plugin_languages),
         )
 
     def fake_save_settings(settings: Settings) -> None:
@@ -51,6 +55,14 @@ def test_config_command_updates_and_saves(monkeypatch) -> None:
             "D:/plugins/b",
             "--remove-plugin-dir",
             "C:/plugins/default",
+            "--language",
+            "zh",
+            "--set-plugin-language",
+            "example.release-hello:ja",
+            "--set-plugin-language",
+            "builtin.file:en",
+            "--remove-plugin-language",
+            "builtin.file",
             "--yes",
         ],
     )
@@ -67,6 +79,11 @@ def test_config_command_updates_and_saves(monkeypatch) -> None:
         str(Path("D:/plugins/a").expanduser()),
         str(Path("D:/plugins/b").expanduser()),
     ]
+    assert updated.language == "zh"
+    assert updated.plugin_languages == {
+        "legacy.plugin": "zh",
+        "example.release-hello": "ja",
+    }
 
 
 def test_config_command_rejects_invalid_conflict_policy(monkeypatch) -> None:
@@ -88,3 +105,24 @@ def test_config_command_rejects_invalid_conflict_policy(monkeypatch) -> None:
 
     assert result.exit_code != 0
     assert "conflict_policy must be one of" in result.output
+
+
+def test_config_command_rejects_invalid_language(monkeypatch) -> None:
+    """config command should reject non ISO-639-1 language values."""
+
+    monkeypatch.setattr(plugin_admin, "load_settings", lambda: Settings())
+    monkeypatch.setattr(plugin_admin, "get_config_path", lambda: Path("C:/tmp/config.json"))
+
+    runner = CliRunner()
+    result = runner.invoke(
+        plugin_admin.app,
+        [
+            "config",
+            "--language",
+            "zh-cn",
+            "--yes",
+        ],
+    )
+
+    assert result.exit_code != 0
+    assert "language must be ISO-639-1 format" in result.output

@@ -1,2 +1,0 @@
-[console_scripts]
-share-cli = share_cli.main:cli

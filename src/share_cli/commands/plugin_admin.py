@@ -1,8 +1,9 @@
 """Built-in plugin admin commands."""
 
 from __future__ import annotations
-
+from typing import Any
 from pathlib import Path
+import re
 
 import typer
 from rich.console import Console
@@ -18,11 +19,20 @@ from share_cli.config import (
 from share_cli.core.plugin_contract import CliPluginBase, CommandMetadata
 from share_cli.runtime import get_runtime_state
 
-
+print("我是plugin_admin插件的代码，哈哈哈")
 console = Console()
 app = typer.Typer(help="Manage plugin lifecycle and runtime status.")
 VALID_CONFLICT_POLICIES = {"error", "skip"}
+LANGUAGE_CODE_PATTERN = re.compile(r"^[a-z]{2}$")
+DEFAULT_LANGUAGE = "en"
 
+
+def _resolve_language(value: Any) -> str:
+    if isinstance(value, str):
+        normalized = value.strip().lower()
+        if LANGUAGE_CODE_PATTERN.fullmatch(normalized):
+            return normalized
+    return DEFAULT_LANGUAGE
 
 def _normalize_plugin_dirs(values: list[str]) -> list[str]:
     """Normalize and deduplicate plugin directory values while preserving order."""
@@ -37,10 +47,52 @@ def _normalize_plugin_dirs(values: list[str]) -> list[str]:
     return result
 
 
+def _normalize_language_code(value: str) -> str | None:
+    """Normalize ISO-639-1 language code to lowercase."""
+    cleaned = value.strip().lower()
+    if LANGUAGE_CODE_PATTERN.fullmatch(cleaned):
+        return cleaned
+    return None
+
+
+def _parse_plugin_language_overrides(values: list[str]) -> dict[str, str]:
+    """Parse repeated plugin language values in format plugin_id:lang."""
+    mapping: dict[str, str] = {}
+    for raw in values:
+        entry = raw.strip()
+        if not entry:
+            continue
+        if ":" not in entry:
+            raise typer.BadParameter(
+                "set_plugin_language must use 'plugin_id:lang' format"
+            )
+
+        plugin_raw, language_raw = entry.split(":", 1)
+        plugin_id = plugin_raw.strip()
+        if not plugin_id:
+            raise typer.BadParameter(
+                "set_plugin_language requires a non-empty plugin id"
+            )
+
+        language_code = _normalize_language_code(language_raw)
+        if language_code is None:
+            raise typer.BadParameter(
+                "language must be ISO-639-1 format, e.g., en, zh, ja"
+            )
+
+        mapping[plugin_id] = language_code
+
+    return mapping
+
+
 def _format_setting_value(value: object) -> str:
     """Render setting values for human-friendly table output."""
     if isinstance(value, list):
         return "\n".join(value) if value else "(empty)"
+    if isinstance(value, dict):
+        if not value:
+            return "(empty)"
+        return "\n".join(f"{k}: {v}" for k, v in sorted(value.items()))
     if isinstance(value, bool):
         return "true" if value else "false"
     return str(value)
@@ -55,6 +107,8 @@ def _settings_changes(before: Settings, after: Settings) -> list[tuple[str, str,
         "enable_folder_loader",
         "plugin_dirs",
         "disabled_plugins",
+        "language",
+        "plugin_languages",
     )
     for field_name in fields:
         before_value = getattr(before, field_name)
@@ -94,6 +148,8 @@ def _print_current_settings(settings: Settings) -> None:
     table.add_row("enable_folder_loader", _format_setting_value(settings.enable_folder_loader))
     table.add_row("plugin_dirs", _format_setting_value(settings.plugin_dirs))
     table.add_row("disabled_plugins", _format_setting_value(settings.disabled_plugins))
+    table.add_row("language", _format_setting_value(settings.language))
+    table.add_row("plugin_languages", _format_setting_value(settings.plugin_languages))
 
     console.print(table)
 
@@ -216,6 +272,26 @@ def update_config(
         "--remove-plugin-dir",
         help="Remove one plugin directory. Repeat option for multiple values.",
     ),
+    language: str | None = typer.Option(
+        None,
+        "--language",
+        help="Set global language code (ISO-639-1, e.g., en, zh, ja).",
+    ),
+    set_plugin_language: list[str] = typer.Option(
+        [],
+        "--set-plugin-language",
+        help="Set plugin language as 'plugin_id:lang'. Repeat option for multiple values.",
+    ),
+    remove_plugin_language: list[str] = typer.Option(
+        [],
+        "--remove-plugin-language",
+        help="Remove plugin language override by plugin id. Repeat option for multiple values.",
+    ),
+    clear_plugin_languages: bool = typer.Option(
+        False,
+        "--clear-plugin-languages",
+        help="Clear all plugin language overrides.",
+    ),
     dry_run: bool = typer.Option(
         False,
         "--dry-run",
@@ -236,6 +312,8 @@ def update_config(
         enable_folder_loader=current.enable_folder_loader,
         plugin_dirs=list(current.plugin_dirs),
         disabled_plugins=list(current.disabled_plugins),
+        language=current.language,
+        plugin_languages=dict(current.plugin_languages),
     )
 
     has_direct_options = any(
@@ -246,6 +324,10 @@ def update_config(
             bool(set_plugin_dir),
             bool(add_plugin_dir),
             bool(remove_plugin_dir),
+            language is not None,
+            bool(set_plugin_language),
+            bool(remove_plugin_language),
+            clear_plugin_languages,
         ]
     )
 
@@ -261,6 +343,10 @@ def update_config(
             "Conflict policy (error/skip)",
             default=current.conflict_policy,
         )
+        language = typer.prompt(
+            "Global language (ISO-639-1)",
+            default=current.language,
+        )
         enable_folder_loader = typer.confirm(
             "Enable folder loader",
             default=current.enable_folder_loader,
@@ -270,6 +356,16 @@ def update_config(
             default=", ".join(current.plugin_dirs),
         )
         set_plugin_dir = [item.strip() for item in plugin_dirs_text.split(",") if item.strip()]
+        plugin_languages_text = typer.prompt(
+            "Plugin language overrides (plugin_id:lang, comma-separated)",
+            default=", ".join(
+                f"{plugin_id}:{lang}"
+                for plugin_id, lang in sorted(current.plugin_languages.items())
+            ),
+        )
+        set_plugin_language = [
+            item.strip() for item in plugin_languages_text.split(",") if item.strip()
+        ]
 
     if entrypoint_group is not None:
         cleaned_group = entrypoint_group.strip()
@@ -287,6 +383,14 @@ def update_config(
     if enable_folder_loader is not None:
         proposed.enable_folder_loader = enable_folder_loader
 
+    if language is not None:
+        language_code = _normalize_language_code(language)
+        if language_code is None:
+            raise typer.BadParameter(
+                "language must be ISO-639-1 format, e.g., en, zh, ja"
+            )
+        proposed.language = language_code
+
     if set_plugin_dir:
         proposed.plugin_dirs = _normalize_plugin_dirs(set_plugin_dir)
 
@@ -298,6 +402,23 @@ def update_config(
     if remove_plugin_dir:
         removed = set(_normalize_plugin_dirs(remove_plugin_dir))
         proposed.plugin_dirs = [directory for directory in proposed.plugin_dirs if directory not in removed]
+
+    if clear_plugin_languages:
+        proposed.plugin_languages = {}
+
+    if set_plugin_language:
+        language_updates = _parse_plugin_language_overrides(set_plugin_language)
+        for plugin_id, language_code in language_updates.items():
+            proposed.plugin_languages[plugin_id] = language_code
+
+    if remove_plugin_language:
+        for plugin_id in remove_plugin_language:
+            cleaned_plugin_id = plugin_id.strip()
+            if not cleaned_plugin_id:
+                raise typer.BadParameter(
+                    "remove_plugin_language cannot contain empty plugin id"
+                )
+            proposed.plugin_languages.pop(cleaned_plugin_id, None)
 
     if not proposed.plugin_dirs:
         raise typer.BadParameter("plugin_dirs cannot be empty")
@@ -344,3 +465,7 @@ class PluginAdminPlugin(CliPluginBase):
     @property
     def typer_app(self) -> typer.Typer:
         return app
+    
+    def on_load(self, context: dict[str, Any]) -> None:
+        self.loaded_context = context
+        self.language = _resolve_language(context.get("language"))

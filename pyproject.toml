@@ -31,7 +31,7 @@ dev = [
 ]
 
 [project.scripts]
-share-cli = "share_cli.main:cli"
+scli = "share_cli.main:cli"
 
 [project.entry-points."share_cli.command"]
 # third-party plugins should register into this group
@@ -41,3 +41,6 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+locales = []

@@ -8,6 +8,11 @@ from typing import Any
 
 import typer
 
+from pathlib import Path
+
+from babel.core import Locale
+from babel.support import Translations
+
 
 @dataclass(frozen=True, slots=True)
 class CommandMetadata:
@@ -31,10 +36,37 @@ class CliPluginBase(ABC):
 
     @property
     def typer_app(self) -> typer.Typer:
+        """Return the Typer app instance for this plugin."""
         raise NotImplementedError
 
+
+    def on_configure(self, context: dict[str, Any]) -> None:
+        """Lifecycle hook called before the plugin's Typer app is built.
+        
+        Common context keys include:
+        - language: effective language for this plugin.
+        - global_language: global CLI language.
+        - plugin_language: plugin-specific language override or None.
+        """
+        pass
+
+    def build_app(self) -> typer.Typer:
+        """Build and return the Typer app instance for this plugin."""
+        # raise NotImplementedError
+
+
+
     def on_load(self, context: dict[str, Any]) -> None:
-        """Lifecycle hook called after successful registration."""
+        """Lifecycle hook called after successful registration.
+
+        Common context keys include:
+        - source: plugin discovery source identifier.
+        - command_path: resolved command mount path.
+        - language: effective language for this plugin.
+        - global_language: global CLI language.
+        - plugin_language: plugin-specific language override or None.
+        """
 
     def on_error(self, error: Exception) -> None:
         """Lifecycle hook called when plugin activation fails."""
+
