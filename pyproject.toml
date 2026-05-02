@@ -3,9 +3,9 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "nexuscli"
+name = "nexus-open-cli"
 version = "0.1.0"
-description = "Extensible Typer CLI with hot-pluggable commands"
+description = "Extensible Typer CLI with hot-pluggable commands. NexusCLI loads built-in and third-party plugins on every invocation so you can add new commands by installing packages."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
@@ -21,6 +21,7 @@ dependencies = [
 
 [project.urls]
 # add project links here
+"Homepage" = "https://github.com/PersonalViolet/nexus_cli"
 
 [project.optional-dependencies]
 dev = [

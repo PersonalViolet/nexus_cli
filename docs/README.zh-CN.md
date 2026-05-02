@@ -1,8 +1,8 @@
-# NexusCLI
+# NexusOpenCLI
 
 [English](../README.md) | [中文](README.zh-CN.md)
 
-NexusCLI 是一个可扩展的 Typer 命令行工具，启动时会自动加载内置与第三方插件，让你通过安装插件包来添加新命令。
+NexusOpenCLI 是一个可扩展的 Typer 命令行工具，启动时会自动加载内置与第三方插件，让你通过安装插件包来添加新命令。
 
 ## 特性
 
@@ -16,7 +16,7 @@ NexusCLI 是一个可扩展的 Typer 命令行工具，启动时会自动加载�
 建议在指定目录的虚拟环境中安装：
 
 ```bash
-pip install nexuscli
+pip install nexus-open-cli
 ```
 
 ## 快速开始

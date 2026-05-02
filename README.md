@@ -1,8 +1,8 @@
-# NexusCLI
+# NexusOpenCLI
 
 [English](README.md) | [中文](docs/README.zh-CN.md)
 
-Extensible Typer CLI with hot-pluggable commands. NexusCLI loads built-in and third-party plugins on every invocation so you can add new commands by installing packages.
+Extensible Typer CLI with hot-pluggable commands. NexusOpenCLI loads built-in and third-party plugins on every invocation so you can add new commands by installing packages.
 
 ## Features
 
@@ -16,7 +16,7 @@ Extensible Typer CLI with hot-pluggable commands. NexusCLI loads built-in and th
 For end users, install inside a virtual environment:
 
 ```bash
-pip install nexuscli
+pip install nexus-open-cli
 ```
 
 ## Quick Start
