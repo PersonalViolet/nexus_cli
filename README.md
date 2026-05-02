@@ -68,6 +68,10 @@ pip install -e ".[dev]"
 pytest
 ```
 
+## Developing Plugins
+
+You can use the `skill/ncli-plugi-dev-helper/SKILL.md` skill provided in this repository to quickly develop third-party plugins from scratch (even with zero prior knowledge).
+
 ## License
 
 MIT

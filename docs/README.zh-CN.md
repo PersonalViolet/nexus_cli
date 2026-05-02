@@ -61,6 +61,10 @@ ncli plugin config-path
 
 `ncli plugin config --folder-loader` 启用目录加载无效，该命令即将被弃用，不用管。
 
+## 开发插件
+
+你可以借助本仓库提供的`skill/ncli-plugi-dev-helper/SKILL.md`技能零基础快速开发第三方插件
+
 ## 开发
 
 ```bash
