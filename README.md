@@ -1,8 +1,35 @@
 # NexusOpenCLI
 
+![logo](docs\image\logo.png)
+
 [English](README.md) | [中文](docs/README.zh-CN.md)
 
 Extensible Typer CLI with hot-pluggable commands. NexusOpenCLI loads built-in and third-party plugins on every invocation so you can add new commands by installing packages.
+
+## Development Motivation
+
+In the process of daily development and using productivity tools, I have identified a long-standing issue:
+
+> There are many CLI tools, but they are fragmented and difficult to manage in a unified way.
+
+For example:
+
+- Different tools need to be installed separately, and their commands must be memorized individually
+- Functionalities are scattered, lacking a unified entry point
+- When wanting to extend functionality, you often need to develop your own CLI from scratch
+
+Therefore, I aim to build a CLI project that is:
+
+> **Like an App Store for CLI tools**
+
+The core goals are:
+
+- Enable CLI tools to **be installed like plugins**
+- Allow commands to **be auto-discovered at runtime**
+
+Ultimately forming:
+
+> An **extensible** CLI ecosystem infrastructure
 
 ## Features
 
