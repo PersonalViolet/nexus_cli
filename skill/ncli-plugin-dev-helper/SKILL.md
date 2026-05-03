@@ -27,7 +27,11 @@ argument-hint: 'Provide plugin id, command name, and supported languages.'
 5. Return the Typer app from build_app and expose it via the typer_app property.
 6. Implement on_load for any post-registration behavior and on_error to capture failures.
 7. Register the entrypoint group nexuscli.command in pyproject.toml.
-8. Add locales under a locales/ directory and compile catalogs.
+8. Add locales under a locales/ directory.
+9. Compile .po to .mo files after localization changes, for example:
+    - Run `python -m babel.messages.frontend compile -d src/<package_name>/locales -D messages`
+    - Or, if a babel.cfg is present, run `python -m babel.messages.frontend compile -d src/<package_name>/locales`
+10. If the plugin is created from scratch, run `pip install .` after development completes.
 
 ## Reference Structure
 ```
@@ -117,7 +121,7 @@ class HelloPlugin(CliPluginBase):
 name = "my-plugin"
 version = "0.1.0"
 requires-python = ">=3.10"
-dependencies = ["nexuscli", "typer>=0.12,<1.0", "babel"]
+dependencies = ["nexus-open-cli", "typer>=0.12,<1.0", "babel"]
 
 [project.entry-points."nexuscli.command"]
 hello = "my_plugin.plugin:HelloPlugin"
