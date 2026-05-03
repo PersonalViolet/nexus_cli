@@ -15,7 +15,7 @@ NexusOpenCLI 是一个可扩展的 Typer 命令行工具，启动时会自动加
 
 建议在指定目录的虚拟环境中使用`pip install nexus-open-cli`安装，并输入`ncli plugin list`查看目前命令组
 
-<video src=".\video\show1.mp4"></video>
+<video src="./video/show1.mp4"></video>
 
 ```bash
 ncli --help
@@ -26,7 +26,7 @@ ncli plugin list
 
 以`pip install nexus-open-cli-doctor`为例，体验插件
 
-<video src="video\show2.mp4"></video>
+<video src="video/show2.mp4"></video>
 
 后续添加插件可通过 pip 安装本地文件夹或 PyPI 包：
 
