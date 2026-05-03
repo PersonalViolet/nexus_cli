@@ -15,7 +15,7 @@ Extensible Typer CLI with hot-pluggable commands. NexusOpenCLI loads built-in an
 
 It is recommended to install using `pip install nexus-open-cli` in a virtual environment in the specified directory, and then enter `ncli plugin list` to view the current command groups.
 
-<video src="docs/video/show1.mp4"></video>
+[show1](https://github.com/user-attachments/assets/20eb3058-9bee-45c1-8ae7-7a70ea16bd15)
 
 ```bash
 ncli --help
@@ -32,7 +32,7 @@ ncli file rename ./my-folder --pattern "\s+" --replacement "_" --apply
 
 Take `pip install nexus-open-cli-doctor` as an example to experience the plugin.
 
-<video src="docs/video/show2.mp4"></video>
+[show2](https://github.com/user-attachments/assets/be3a310e-2dc2-4a73-892f-a6c30dbef677)
 
 After installing NexusCLI, add plugins via pip:
 
