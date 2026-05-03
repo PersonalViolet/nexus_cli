@@ -1,6 +1,6 @@
 # NexusOpenCLI
 
-![logo](image\logo.png)
+![logo](image/logo.png)
 
 [English](../README.md) | [中文](README.zh-CN.md)
 
