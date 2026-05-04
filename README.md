@@ -42,28 +42,33 @@ Ultimately forming:
 
 It is recommended to install using `pip install nexus-open-cli` in a virtual environment in the specified directory, and then enter `ncli plugin list` to view the current command groups.
 
-[show1](https://github.com/user-attachments/assets/20eb3058-9bee-45c1-8ae7-7a70ea16bd15)
+[quick start](https://github.com/user-attachments/assets/20eb3058-9bee-45c1-8ae7-7a70ea16bd15)
 
 ```bash
 ncli --help
 ncli plugin list
-
-# Batch rename preview (dry-run is default)
-ncli file rename ./my-folder --pattern "\s+" --replacement "_"
-
-# Apply the rename plan
-ncli file rename ./my-folder --pattern "\s+" --replacement "_" --apply
 ```
 
 ## Installing Plugins
 
-Take `pip install nexus-open-cli-doctor` as an example to experience the plugin.
+It is recommended to download plugins via `ncli repo`.
+
+All plugins are reviewed by the maintainers of `NexusOpenCLI`, allowing you to discover and install plugins just like using an App Store.
+
+Take `ncli repo` as an example:
+
+[ncli repo](https://github.com/user-attachments/assets/f49316a2-8fb5-4f7a-9c59-9bc99bf614a3)
+
+You can also install plugins via `pip install nexus-open-cli-doctor` for a quick experience.
 
 [show2](https://github.com/user-attachments/assets/be3a310e-2dc2-4a73-892f-a6c30dbef677)
 
-After installing NexusCLI, add plugins via pip:
+For subsequent plugin installation, you can either use `ncli repo` (**recommended**), or install from a local directory or PyPI via pip:
 
 ```bash
+# Install plugin via ncli repo
+ncli repo install pluginName
+
 # Install a local plugin folder
 pip install /path/to/your-plugin
 
@@ -98,6 +103,23 @@ pytest
 ## Developing Plugins
 
 You can use the `skill/ncli-plugi-dev-helper/SKILL.md` skill provided in this repository to quickly develop third-party plugins from scratch (even with zero prior knowledge).
+
+## Run `ncli` Anywhere on Your PC Under Virtual Environment
+
+### Windows
+
+### Steps
+
+1. Right-click **This PC** → **Properties** → **Advanced system settings** → **Environment Variables**
+
+2. Find `Path` in the **System variables** list and double-click to open it
+
+3. Click **New**, then add the folder path where `ncli.exe` is located:
+
+   ```bash
+   # Example
+   D:\nexusOpenCLI\.venv\Scripts
+   ```
 
 ## License
 

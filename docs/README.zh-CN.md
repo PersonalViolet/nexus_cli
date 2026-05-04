@@ -42,7 +42,7 @@ NexusOpenCLI 是一个可扩展的 Typer 命令行工具，启动时会自动加
 
 建议在指定目录的虚拟环境中使用`pip install nexus-open-cli`安装，并输入`ncli plugin list`查看目前命令组
 
-[show1](https://github.com/user-attachments/assets/20eb3058-9bee-45c1-8ae7-7a70ea16bd15)
+[quick start](https://github.com/user-attachments/assets/20eb3058-9bee-45c1-8ae7-7a70ea16bd15)
 
 ```bash
 ncli --help
@@ -51,13 +51,20 @@ ncli plugin list
 
 ## 安装插件
 
-以`pip install nexus-open-cli-doctor`为例，体验插件
+推荐选择`ncli repo`下载插件，因为插件经过`NexusOpenCLI`维护者的审核，并能像App Store一样寻找想要的插件。以`ncli repo`为例：
+
+[ncli repo](https://github.com/user-attachments/assets/f49316a2-8fb5-4f7a-9c59-9bc99bf614a3)
+
+或者可以选择`pip install nexus-open-cli-doctor`为例，体验插件
 
 [show2](https://github.com/user-attachments/assets/be3a310e-2dc2-4a73-892f-a6c30dbef677)
 
-后续添加插件可通过 pip 安装本地文件夹或 PyPI 包：
+后续添加插件可通过`ncli repo`安装插件(推荐)，也可通过 pip 安装本地文件夹或 PyPI 包：
 
 ```bash
+# 使用ncli repo 安装插件
+ncli repo install pluginName
+
 # 安装本地插件目录
 pip install /path/to/your-plugin
 
@@ -92,6 +99,23 @@ ncli plugin config-path
 pip install -e ".[dev]"
 pytest
 ```
+
+## 安装在虚拟环境的情况下，让电脑任何地方都能输入 ncli 运行程序
+
+### Windows
+
+### 操作步骤
+
+1. 右键 **此电脑** → 属性 → 高级系统设置 → 环境变量
+
+2. 在**系统变量**列表里找到 `Path`，双击打开
+
+3. 点击 **新建**，把 `ncli.exe` 所在文件夹路径填进去：
+
+   ```bash
+   #示例
+   D:\nexusOpenCLI\.venv\Scripts\ncli.exe
+   ```
 
 ## 许可证
 
