@@ -51,9 +51,11 @@ ncli plugin list
 
 ## Installing Plugins
 
-It is recommended to download plugins via `ncli repo`.
+It is recommended to install plugins via the `ncli repo` command.
 
-All plugins are reviewed by the maintainers of `NexusOpenCLI`, allowing you to discover and install plugins just like using an App Store.
+All plugins downloaded using this command are officially registered in the [NexusOpenCLI-plugins-registry](https://github.com/PersonalViolet/NexusOpenCLI-plugins-registry).
+
+Plugins in the registry have been reviewed and verified by the NexusOpenCLI maintainers. You can browse and discover plugins effortlessly, just like searching for apps on the App Store.
 
 Take `ncli repo` as an example:
 

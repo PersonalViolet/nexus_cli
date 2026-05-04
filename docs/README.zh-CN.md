@@ -51,7 +51,7 @@ ncli plugin list
 
 ## 安装插件
 
-推荐选择`ncli repo`下载插件，因为插件经过`NexusOpenCLI`维护者的审核，并能像App Store一样寻找想要的插件。以`ncli repo`为例：
+推荐选择`ncli repo`下载插件(使用该命令下载的插件都已在[NexusOpenCLI-plugins-registry](https://github.com/PersonalViolet/NexusOpenCLI-plugins-registry)注册)，因为插件经过`NexusOpenCLI`维护者的审核，并能像App Store一样寻找想要的插件。以`ncli repo`为例：
 
 [ncli repo](https://github.com/user-attachments/assets/f49316a2-8fb5-4f7a-9c59-9bc99bf614a3)
 
