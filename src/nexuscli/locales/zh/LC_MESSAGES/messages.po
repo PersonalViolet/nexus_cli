@@ -1,0 +1,117 @@
+# Chinese translations for nexuscli repo commands.
+# Copyright (C) 2026
+# This file is distributed under the same license as the nexuscli project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: nexuscli 0.1.0\n"
+"POT-Creation-Date: 2026-05-04 00:00+0000\n"
+"PO-Revision-Date: 2026-05-04 00:00+0000\n"
+"Last-Translator: \n"
+"Language: zh\n"
+"Language-Team: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: src/nexuscli/commands/repo.py
+msgid "Plugin repository commands"
+msgstr "插件仓库命令"
+
+#: src/nexuscli/commands/repo.py
+msgid "Manage plugin registry entries."
+msgstr "管理插件仓库条目。"
+
+#: src/nexuscli/commands/repo.py
+msgid "List available plugins from the registry cache."
+msgstr "从仓库缓存中列出可用插件。"
+
+#: src/nexuscli/commands/repo.py
+msgid "Update the local registry cache from GitHub."
+msgstr "从 GitHub 更新本地仓库缓存。"
+
+#: src/nexuscli/commands/repo.py
+msgid "Install a plugin by name from the registry cache."
+msgstr "根据名称从仓库缓存安装插件。"
+
+#: src/nexuscli/commands/repo.py
+msgid "Plugin name from the registry."
+msgstr "来自仓库的插件名称。"
+
+#: src/nexuscli/commands/repo.py
+msgid "Registry cache not found. Run 'ncli repo update' first."
+msgstr "未找到仓库缓存。请先运行 'ncli repo update'。"
+
+#: src/nexuscli/commands/repo.py
+#, python-brace-format
+msgid "Registry cache path: {path}"
+msgstr "仓库缓存路径：{path}"
+
+#: src/nexuscli/commands/repo.py
+msgid "Registry cache is invalid. Run 'ncli repo update' to refresh."
+msgstr "仓库缓存无效。请运行 'ncli repo update' 进行刷新。"
+
+#: src/nexuscli/commands/repo.py
+msgid "No plugins found in registry cache."
+msgstr "仓库缓存中没有插件。"
+
+#: src/nexuscli/commands/repo.py
+msgid "Plugin Registry"
+msgstr "插件仓库"
+
+#: src/nexuscli/commands/repo.py
+msgid "Name"
+msgstr "名称"
+
+#: src/nexuscli/commands/repo.py
+msgid "Description"
+msgstr "描述"
+
+#: src/nexuscli/commands/repo.py
+msgid "Version"
+msgstr "版本"
+
+#: src/nexuscli/commands/repo.py
+msgid "Author"
+msgstr "作者"
+
+#: src/nexuscli/commands/repo.py
+msgid "Downloading registry..."
+msgstr "正在下载仓库..."
+
+#: src/nexuscli/commands/repo.py
+#, python-brace-format
+msgid "Failed to download registry: {error}"
+msgstr "下载仓库失败：{error}"
+
+#: src/nexuscli/commands/repo.py
+#, python-brace-format
+msgid "Registry updated at {path} ({count} plugins)."
+msgstr "仓库已更新到 {path}（{count} 个插件）。"
+
+#: src/nexuscli/commands/repo.py
+#, python-brace-format
+msgid "Plugin '{name}' not found in registry cache."
+msgstr "仓库缓存中未找到插件 '{name}'。"
+
+#: src/nexuscli/commands/repo.py
+#, python-brace-format
+msgid "Registry entry for '{name}' is missing package or version."
+msgstr "插件 '{name}' 的仓库条目缺少包名或版本。"
+
+#: src/nexuscli/commands/repo.py
+#, python-brace-format
+msgid "Installing {package}..."
+msgstr "正在安装 {package}..."
+
+#: src/nexuscli/commands/repo.py
+#, python-brace-format
+msgid "Installed {package}."
+msgstr "已安装 {package}。"
+
+#: src/nexuscli/commands/repo.py
+#, python-brace-format
+msgid "Install failed with exit code {code}."
+msgstr "安装失败，退出码 {code}。"

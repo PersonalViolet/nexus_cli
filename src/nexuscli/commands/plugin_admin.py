@@ -465,6 +465,12 @@ class PluginAdminPlugin(CliPluginBase):
     def typer_app(self) -> typer.Typer:
         return app
     
+    def on_configure(self, context):
+        pass
+
+    def build_app(self):
+        pass
+    
     def on_load(self, context: dict[str, Any]) -> None:
         self.loaded_context = context
         self.language = _resolve_language(context.get("language"))
