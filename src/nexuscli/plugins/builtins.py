@@ -12,6 +12,5 @@ def get_builtin_plugins() -> list[CliPluginBase]:
     """Return built-in plugin instances."""
     return [
         PluginAdminPlugin(),
-        FileCommandsPlugin(),
         RepoCommandsPlugin(),
     ]

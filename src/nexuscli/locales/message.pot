@@ -1,17 +1,17 @@
-# Chinese translations for nexuscli repo commands.
-# Copyright (C) 2026
-# This file is distributed under the same license as the nexuscli project.
+# Translations template for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: nexuscli 0.1.0\n"
+"Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-05-04 15:25+0800\n"
-"PO-Revision-Date: 2026-05-04 00:00+0000\n"
-"Last-Translator: \n"
-"Language: zh\n"
-"Language-Team: zh\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,393 +19,369 @@ msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:92
 msgid "set_plugin_language must use 'plugin_id:lang' format"
-msgstr "设置插件语言必须使用 '插件ID:语言' 格式"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:99
 msgid "set_plugin_language requires a non-empty plugin id"
-msgstr "设置插件语言需要提供非空的插件ID"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:105
 #: src/nexuscli/commands/plugin_admin.py:508
 msgid "language must be ISO-639-1 format, e.g., en, zh, ja"
-msgstr "语言必须符合ISO-639-1格式，例如：en、zh、ja"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:193
 msgid "Manage plugin lifecycle and runtime status."
-msgstr "管理插件生命周期和运行时状态。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:200
 msgid "Show failed plugins."
-msgstr "显示失败的插件。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:205
 msgid "Show skipped plugins."
-msgstr "显示跳过的插件。"
-
-#: src/nexuscli/commands/plugin_admin.py:210
-msgid "List loaded plugins and diagnostics for this invocation."
-msgstr "列出本次调用加载的插件及诊断信息。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:212
 #: src/nexuscli/commands/plugin_admin.py:226
 msgid "Loaded Plugins"
-msgstr "已加载的插件"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:213
 #: src/nexuscli/commands/plugin_admin.py:233
 msgid "Plugin ID"
-msgstr "插件ID"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:214
 msgid "Source"
-msgstr "来源"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:215
 msgid "Command Path"
-msgstr "命令路径"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:216 src/nexuscli/commands/repo.py:206
 msgid "Version"
-msgstr "版本"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:225
 msgid "No plugin loaded in current invocation."
-msgstr "当前调用中未加载任何插件。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:232
 msgid "Skipped Plugins"
-msgstr "跳过的插件"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:234
 msgid "Reason"
-msgstr "原因"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:240
 msgid "Failed Plugins"
-msgstr "失败的插件"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:241
 msgid "Plugin"
-msgstr "插件"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:242
 msgid "Error"
-msgstr "错误"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:249
 msgid "Plugin ID to disable."
-msgstr "要禁用的插件ID。"
-
-#: src/nexuscli/commands/plugin_admin.py:247
-msgid "Disable a plugin for next CLI invocations."
-msgstr "禁用插件（下一次调用生效）。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:256
 #, python-brace-format
 msgid "Disabled plugin '{plugin_id}'. Effective next invocation."
-msgstr "已禁用插件 '{plugin_id}'。下次调用时生效。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:265
 #, python-brace-format
 msgid "Plugin '{plugin_id}' was already disabled."
-msgstr "插件 '{plugin_id}' 已被禁用。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:274
 msgid "Plugin ID to enable."
-msgstr "要启用的插件ID。"
-
-#: src/nexuscli/commands/plugin_admin.py:271
-msgid "Enable a previously disabled plugin."
-msgstr "启用已禁用的插件。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:281
 #, python-brace-format
 msgid "Enabled plugin '{plugin_id}'. Effective next invocation."
-msgstr "已启用插件 '{plugin_id}'。下次调用时生效。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:290
 #, python-brace-format
 msgid "Plugin '{plugin_id}' was already enabled."
-msgstr "插件 '{plugin_id}' 已被启用。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:299
 msgid "Plugin ID to inspect."
-msgstr "要检查的插件ID。"
-
-#: src/nexuscli/commands/plugin_admin.py:296
-msgid "Inspect one plugin from current runtime state."
-msgstr "检查当前运行时状态中的单个插件。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:306
 msgid "Plugin Details"
-msgstr "插件详情"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:307
 msgid "Field"
-msgstr "字段"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:308
 msgid "Value"
-msgstr "值"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:320
 #, python-brace-format
 msgid "Plugin '{plugin_id}' is currently disabled."
-msgstr "插件 '{plugin_id}' 当前已被禁用。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:324
 #, python-brace-format
 msgid "Config file: {path}"
-msgstr "配置文件：{path}"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:325
 msgid "Disabled Plugin"
-msgstr "已禁用的插件"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:335
 #, python-brace-format
 msgid "Plugin '{plugin_id}' is not active. Reason: {reason}"
-msgstr "插件 '{plugin_id}' 未激活。原因：{reason}"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:339
 msgid "Inactive Plugin"
-msgstr "未激活的插件"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:347
 #, python-brace-format
 msgid "Plugin '{plugin_id}' not found in current invocation."
-msgstr "当前调用中未找到插件 '{plugin_id}'。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:350
 msgid "Plugin Not Found"
-msgstr "未找到插件"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:360
 msgid "Set plugin discovery entry point group."
-msgstr "设置插件发现入口点组。"
-
-#: src/nexuscli/commands/plugin_admin.py:356
-msgid "Update plugin-related configuration with preview and validation."
-msgstr "更新插件相关配置（含预览与校验）。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:365
 msgid "Set command conflict policy: error or skip."
-msgstr "设置命令冲突策略：error（报错）或 skip（跳过）。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:370
 msgid "Enable or disable folder-based plugin discovery."
-msgstr "启用或禁用基于文件夹的插件发现。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:375
 msgid "Replace plugin directory list. Repeat option for multiple values."
-msgstr "替换插件目录列表。重复选项可指定多个值。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:380
 msgid "Add one plugin directory. Repeat option for multiple values."
-msgstr "添加一个插件目录。重复选项可添加多个目录。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:385
 msgid "Remove one plugin directory. Repeat option for multiple values."
-msgstr "移除一个插件目录。重复选项可移除多个目录。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:390
 msgid "Set global language code (ISO-639-1, e.g., en, zh, ja)."
-msgstr "设置全局语言代码（ISO-639-1，例如：en、zh、ja）。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:395
 msgid ""
 "Set plugin language as 'plugin_id:lang'. Repeat option for multiple "
 "values."
-msgstr "设置插件语言为 '插件ID:语言'。重复选项可指定多个值。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:400
 msgid ""
 "Remove plugin language override by plugin id. Repeat option for multiple "
 "values."
-msgstr "按插件ID移除插件语言覆盖。重复选项可移除多个。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:405
 msgid "Clear all plugin language overrides."
-msgstr "清除所有插件语言覆盖设置。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:410
 msgid "Preview changes without writing the config file."
-msgstr "预览更改而不写入配置文件。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:416
 msgid "Apply changes without confirmation prompt."
-msgstr "应用更改而不显示确认提示。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:448
 msgid "No option provided. Starting interactive setup."
-msgstr "未提供选项。启动交互式设置。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:451
 msgid "Entry point group"
-msgstr "入口点组"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:455
 msgid "Conflict policy (error/skip)"
-msgstr "冲突策略（error/skip）"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:459
 msgid "Global language (ISO-639-1)"
-msgstr "全局语言（ISO-639-1）"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:463
 msgid "Enable folder loader"
-msgstr "启用文件夹加载器"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:467
 msgid "Plugin directories (comma-separated)"
-msgstr "插件目录（逗号分隔）"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:474
 msgid "Plugin language overrides (plugin_id:lang, comma-separated)"
-msgstr "插件语言覆盖（插件ID:语言，逗号分隔）"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:487
 msgid "entrypoint_group cannot be empty"
-msgstr "入口点组不能为空"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:495
 #, python-brace-format
 msgid "conflict_policy must be one of: {allowed}"
-msgstr "冲突策略必须是以下之一：{allowed}"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:544
 msgid "remove_plugin_language cannot contain empty plugin id"
-msgstr "移除插件语言不能包含空的插件ID"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:549
 msgid "plugin_dirs cannot be empty"
-msgstr "插件目录不能为空"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:553
 msgid "No config changes detected."
-msgstr "未检测到配置更改。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:561
 #, python-brace-format
 msgid "Dry-run mode. No file written. Config path: {path}"
-msgstr "试运行模式。未写入文件。配置路径：{path}"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:569
 msgid "Apply these changes?"
-msgstr "应用这些更改？"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:570
 msgid "Update canceled."
-msgstr "更新已取消。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:576
 #, python-brace-format
 msgid "Config updated: {path}"
-msgstr "配置已更新：{path}"
-
-#: src/nexuscli/commands/plugin_admin.py:590
-msgid "Show where plugin config is stored."
-msgstr "显示插件配置文件位置。"
+msgstr ""
 
 #: src/nexuscli/commands/plugin_admin.py:604
 msgid "Plugin management commands"
-msgstr "插件管理命令"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:125
 msgid "Plugin repository commands"
-msgstr "插件仓库命令"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:158
 msgid "Manage plugin registry entries."
-msgstr "管理插件仓库条目。"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:164
 msgid "List available plugins from the registry cache."
-msgstr "从仓库缓存中列出可用插件。"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:171 src/nexuscli/commands/repo.py:261
 msgid "Registry cache not found. Run 'ncli repo update' first."
-msgstr "未找到仓库缓存。请先运行 'ncli repo update'。"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:176 src/nexuscli/commands/repo.py:188
 #: src/nexuscli/commands/repo.py:201 src/nexuscli/commands/repo.py:266
 #: src/nexuscli/commands/repo.py:278
 #, python-brace-format
 msgid "Registry cache path: {path}"
-msgstr "仓库缓存路径：{path}"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:183 src/nexuscli/commands/repo.py:273
 msgid "Registry cache is invalid. Run 'ncli repo update' to refresh."
-msgstr "仓库缓存无效。请运行 'ncli repo update' 进行刷新。"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:195
 msgid "No plugins found in registry cache."
-msgstr "仓库缓存中没有插件。"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:203
 msgid "Plugin Registry"
-msgstr "插件仓库"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:204
 msgid "Name"
-msgstr "名称"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:205
 msgid "Description"
-msgstr "描述"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:207
 msgid "Author"
-msgstr "作者"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:222
 msgid "Update the local registry cache from GitHub."
-msgstr "从 GitHub 更新本地仓库缓存。"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:226
 msgid "Downloading registry..."
-msgstr "正在下载仓库..."
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:231
 #, python-brace-format
 msgid "Failed to download registry: {error}"
-msgstr "下载仓库失败：{error}"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:240
 #, python-brace-format
 msgid "Registry updated at {path} ({count} plugins)."
-msgstr "仓库已更新到 {path}（{count} 个插件）。"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:250
 msgid "Install a plugin by name from the registry cache."
-msgstr "根据名称从仓库缓存安装插件。"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:254
 msgid "Plugin name from the registry."
-msgstr "来自仓库的插件名称。"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:287
 #, python-brace-format
 msgid "Plugin '{name}' not found in registry cache."
-msgstr "仓库缓存中未找到插件 '{name}'。"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:300
 #, python-brace-format
 msgid "Registry entry for '{name}' is missing package or version."
-msgstr "插件 '{name}' 的仓库条目缺少包名或版本。"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:309
 #, python-brace-format
 msgid "Installing {package}..."
-msgstr "正在安装 {package}..."
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:320
 #, python-brace-format
 msgid "Installed {package}."
-msgstr "已安装 {package}。"
+msgstr ""
 
 #: src/nexuscli/commands/repo.py:328
 #, python-brace-format
 msgid "Install failed with exit code {code}."
-msgstr "安装失败，退出码 {code}。"
+msgstr ""
 
